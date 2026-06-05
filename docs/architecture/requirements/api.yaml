@@ -1,0 +1,592 @@
+openapi: 3.0.4
+info:
+  title: Swagger REST API Task Flow - OpenAPI 3.0
+  description: |-
+    REST API для управления задачами и пользователями со следующими операциями:
+
+    ### Задачи:
+
+    • POST /tasks — создание новой задачи;
+
+    • GET /tasks/{task_id} — получение задачи по ID;
+
+    • PATCH /tasks/{task_id} — редактирование задачи;
+
+    • DELETE /tasks/{task_id} — удаление задачи;
+
+    • POST /tasks/{task_id}/executor — назначение исполнителя задачи;
+
+    • PATCH /tasks/{task_id}/status — обновление статуса задачи;
+
+    • PATCH /tasks/{task_id}/deadline — обновление срока выполнения задачи;
+
+    • POST /tasks/{task_id}/comments — добавление комментария в задачу;
+
+    • GET /tasks/{task_id}/comments — получение комментариев задачи;
+
+    ### Пользователи:
+
+    • POST /users — создание пользователя;
+
+    • GET /users/{user_id} — получение пользователя по ID;
+
+  version: 1.0.0
+
+tags:
+  - name: task
+    description: Операции с задачами
+  - name: user
+    description: Операции с пользователями
+
+paths:
+  /tasks:
+    post:
+      tags:
+        - task
+      summary: Создание новой задачи.
+      description: Создаем новую задачу.
+      requestBody:
+        required: true
+        description: Данные, необходимые для создания задачи
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskData'
+      responses:
+        '201':
+          description: Задача успешно создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /tasks/{task_id}:
+    delete:
+      tags:
+        - task
+      summary: Удаление задачи.
+      description: Удаляем задачу.
+      parameters:
+        - name: task_id
+          in: path
+          description: ID задачи
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Задача успешно удалена
+        '404':
+          description: Задача не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    patch:
+      tags:
+        - task
+      summary: Редактирование данных по задаче.
+      description: Редактируем данные задачи.
+      parameters:
+        - name: task_id
+          in: path
+          description: ID задачи
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Данные, необходимые для редактирования задачи
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditTaskData'
+      responses:
+        '200':
+          description: Задача успешно обновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Задача не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    get:
+      tags:
+        - task
+      summary: Получение задачи по ID.
+      description: Получаем задачу по ID.
+      parameters:
+        - name: task_id
+          in: path
+          description: ID задачи
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Задача не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /tasks/{task_id}/executor:
+    post:
+      tags:
+        - task
+      summary: Назначение исполнителя задачи.
+      description: Назначаем исполнителя задачи.
+      parameters:
+        - name: task_id
+          required: true
+          in: path
+          description: ID задачи
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Данные, необходимые для назначения исполнителя задачи
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentExecutorTaskData'
+      responses:
+        '200':
+          description: Исполнитель успешно назначен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Задача не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /tasks/{task_id}/status:
+    patch:
+      tags:
+        - task
+      summary: Обновление статуса задачи
+      description: Обновляем статус задачи
+      parameters:
+        - name: task_id
+          required: true
+          in: path
+          description: ID задачи
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStatusData'
+      responses:
+        '200':
+          description: Статус успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Задача не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '400':
+          description: Ошибка обновления статуса
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /tasks/{task_id}/deadline:
+    patch:
+      tags:
+        - task
+      summary: Обновление срока выполнения задачи
+      description: Обновляем срок выполнения задачи в днях
+      parameters:
+        - name: task_id
+          required: true
+          in: path
+          description: ID задачи
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeadlineData'
+      responses:
+        '200':
+          description: Срок выполнения успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Задача не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '400':
+          description: Ошибка обновления срока выполнения
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /tasks/{task_id}/comments:
+    post:
+      tags:
+        - task
+      summary: Добавление комментария в задачу.
+      description: Добавляем комментарий в задачу.
+      parameters:
+        - name: task_id
+          required: true
+          in: path
+          description: ID задачи
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Данные, необходимые для добавления комментария к задаче
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentsTaskData'
+      responses:
+        '201':
+          description: Комментарий успешно добавлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '404':
+          description: Задача не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    get:
+      tags:
+        - task
+      summary: Получение комментариев задачи.
+      description: Получаем все комментарии задачи.
+      parameters:
+        - name: task_id
+          required: true
+          in: path
+          description: ID задачи
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '404':
+          description: Задача не найдена
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /users:
+    post:
+      tags:
+        - user
+      summary: Создание пользователя.
+      description: Создаем нового пользователя.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserData'
+      responses:
+        '201':
+          description: Пользователь успешно создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /users/{user_id}:
+    get:
+      tags:
+        - user
+      summary: Получение пользователя по ID.
+      description: Получаем пользователя по ID.
+      parameters:
+        - name: user_id
+          in: path
+          description: ID пользователя
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    CreateTaskData:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1234
+        content:
+          type: string
+          example: Description of task
+        deadline_days:
+          type: integer
+          example: 7
+          minimum: 1
+      required:
+        - user_id
+        - content
+
+    EditTaskData:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1234
+        status_name:
+          type: string
+          example: in review
+        deadline_days:
+          type: integer
+          example: 7
+          minimum: 1
+
+    AppointmentExecutorTaskData:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1234
+      required:
+        - user_id
+
+    UpdateStatusData:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1234
+        status_name:
+          type: string
+          example: in review
+      required:
+        - user_id
+        - status_name
+
+    UpdateDeadlineData:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1234
+        days:
+          type: integer
+          example: 7
+          minimum: 1
+      required:
+        - user_id
+        - days
+
+    CommentsTaskData:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          example: 1234
+        content:
+          type: string
+          example: Comment text
+      required:
+        - user_id
+        - content
+
+    CreateUserData:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Ivan Petrov
+        email:
+          type: string
+          format: email
+          example: ivan@example.com
+      required:
+        - name
+        - email
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1234
+        content:
+          type: string
+          example: Description of task
+        status_name:
+          type: string
+          example: in review
+        deadline_days:
+          type: integer
+          example: 7
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:10:00Z"
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        task_id:
+          type: integer
+          example: 1
+        user_id:
+          type: integer
+          example: 1234
+        content:
+          type: string
+          example: Comment text
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:00:00Z"
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Ivan Petrov
+        email:
+          type: string
+          format: email
+          example: ivan@example.com
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:00:00Z"
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: TASK_NOT_FOUND
+        message:
+          type: string
+          example: Задача с ID 123 не найдена
+      required:
+        - code
+        - message
