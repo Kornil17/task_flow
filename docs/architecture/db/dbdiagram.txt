@@ -1,0 +1,64 @@
+# # Install
+npm install -g dbdocs
+
+# Export DBML из файла
+dbdocs build schema.dbml --output schema.dbdocs
+
+Table tasks {
+  id integer [primary key, increment]
+  name varchar [not null]
+  content text [not null]
+  status_id integer [not null]
+  deadline_days integer [not null]
+  create_user_id integer [not null]
+  executor_user_id integer
+  created_at timestamp [default: `NOW()`, note: 'Автоматически при создании']
+  updated_at timestamp [default: `NOW()`, note: 'Автоматически обновляется при UPDATE']
+  deleted_at timestamp
+
+   indexes {
+    status_id
+    create_user_id
+    executor_user_id
+  }
+}
+
+Table users {
+  id integer [primary key, increment]
+  username varchar [not null]
+  surname varchar [not null]
+  email varchar [not null, unique]
+  role varchar [not null]
+  created_at timestamp [default: `NOW()`]
+  updated_at timestamp [default: `NOW()`]
+  deleted_at timestamp
+
+  indexes {
+    email [unique]
+    username
+  }
+}
+
+Table comments {
+  id integer [primary key, increment]
+  content text [not null]
+  user_id integer [not null]
+  task_id integer [not null]
+  created_at timestamp [default: `NOW()`]
+
+  indexes {
+    task_id
+    user_id
+  }
+}
+
+Table status {
+  id integer [primary key, increment]
+  name varchar [not null, unique]
+}
+
+Ref: tasks.status_id > status.id
+Ref: tasks.create_user_id > users.id
+Ref: tasks.executor_user_id > users.id
+Ref: comments.user_id > users.id
+Ref: comments.task_id > tasks.id
