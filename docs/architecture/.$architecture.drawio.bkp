@@ -1,0 +1,86 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Page-1" id="8TxJQfzxtwLstnpWml59">
+    <mxGraphModel dx="1826" dy="627" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="b9MvWola2kCvGEKEO2l1-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-1" target="b9MvWola2kCvGEKEO2l1-18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-1" target="b9MvWola2kCvGEKEO2l1-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-1" target="b9MvWola2kCvGEKEO2l1-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="275" width="130" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=45;exitPerimeter=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-2" target="b9MvWola2kCvGEKEO2l1-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-2" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="730" y="245" width="130" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-3" target="b9MvWola2kCvGEKEO2l1-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <object label="Client&lt;div&gt;&lt;br&gt;&lt;/div&gt;" id="b9MvWola2kCvGEKEO2l1-3">
+          <mxCell style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+            <mxGeometry x="-160" y="290" width="30" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-9" value="LoadBalancer" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="95" y="305" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-10" value="PostgresSQL" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="765" y="315" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-18" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="120" width="120" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-19" value="TaskFlow&lt;div&gt;Service&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="147.5" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-22" target="b9MvWola2kCvGEKEO2l1-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-22" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="277.5" width="120" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-23" value="TaskFlow&lt;div&gt;Service&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="305" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-24" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="465" width="120" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-25" value="TaskFlow&lt;div&gt;Service&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="492.5" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-29" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="960" y="390" width="130" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-30" value="PostgresSQL" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="995" y="460" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-31" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="960" y="155" width="130" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-32" value="PostgresSQL" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="995" y="225" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=45;entryPerimeter=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-18" target="b9MvWola2kCvGEKEO2l1-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=105;entryPerimeter=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-24" target="b9MvWola2kCvGEKEO2l1-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b9MvWola2kCvGEKEO2l1-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=105;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="b9MvWola2kCvGEKEO2l1-2" target="b9MvWola2kCvGEKEO2l1-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

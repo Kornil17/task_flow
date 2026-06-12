@@ -48,14 +48,14 @@ uvicorn src.main:app --host 0.0.0.0 --port 8000 --workers 4
 
 ### 📊 Диаграммы
 
-#### ER-диаграмма БД
-Смотрите `docs/architecture/diagrams/er-diagram.md`
+#### диаграмма БД
+Смотрите `docs/architecture/db/task_flow.svg`
 
 #### Диаграмма классов
-Смотрите `docs/architecture/diagrams/class-diagram.md`
+Смотрите `docs/architecture/code/class-diagram.md`
 
 #### Диаграмма последовательности
-Смотрите `docs/architecture/diagrams/sequence-diagram.md`
+Смотрите `docs/architecture/code/sequence-diagram.md`
 
 ## 🐳 Деплой
 Смотрите `docs/deploy`
