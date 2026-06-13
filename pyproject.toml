@@ -13,7 +13,8 @@ requires-python = "~=3.13.0"
 dependencies = [
     "mypy==2.1.0",
     "pre-commit==4.6.0",
-    "pydantic==2.13.4",
+    "pydantic[dotenv]==2.13.4",
+    "python-dotenv==1.2.2",
     "ruff==0.15.17",
 ]
 

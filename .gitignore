@@ -219,3 +219,8 @@ __marimo__/
 
 # idea
 .idea/
+
+# logging
+logs/
+logs_*/
+log*
