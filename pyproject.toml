@@ -11,6 +11,7 @@ description = "API для управления задачами"
 readme = "README.md"
 requires-python = "~=3.13.0"
 dependencies = [
+    "mypy==2.1.0",
     "ruff==0.15.17",
 ]
 
@@ -211,3 +212,79 @@ lines-after-imports = 2
 # ============================
 "fastapi" = ["FastAPI"]
 # Все импорты, которые начинаются с "FastAPI", попадают в секцию "fastapi".
+
+[tool.mypy]
+# ============================
+# Общие настройки mypy
+# ============================
+python_version = "3.13"
+# Целевая версия Python.
+
+strict = true
+# Включает набор строгих проверок (check-untyped-defs, disallow-incomplete-defs, disallow-untyped-defs, no-implicit-optional, warn-redundant-casts, warn-unused-ignores, warn-return-any, warn-unreachable).
+
+explicit_package_bases = true
+# Явное определение корневых пакетов для правильного разрешения импортов.
+
+plugins = ["pydantic.mypy"]
+# Плагин для корректной типизации Pydantic.
+
+exclude = ["tests/", "venv/"]
+# Директории, исключённые из проверки.
+
+# ============================
+# Повышение строгости (дополнительные флаги)
+# ============================
+ignore_missing_imports = false
+# Не игнорировать отсутствие stub-файлов.
+
+implicit_reexport = false
+# Запрещает неявный реэкспорт (требует явного указания в __all__).
+
+local_partial_types = false
+# Запрещает частичный вывод типов (например, x: list = [] – ошибка, требуется list[int]).
+
+warn_return_any = true
+# Предупреждать, если функция возвращает Any.
+
+warn_unused_configs = true
+# Предупреждать о неиспользуемых опциях в конфигурации.
+
+strict_equality = true
+# Запрещает заведомо неверные сравнения (например, int == str).
+
+no_implicit_optional = true
+# Требует явного Optional для параметров со значением None по умолчанию.
+
+warn_unused_ignores = true
+# Предупреждать о бесполезных комментариях # type: ignore.
+
+warn_redundant_casts = true
+# Предупреждать о лишних приведениях cast().
+
+disallow_any_unimported = true
+# Запрещает импорт Any из неаннотированных модулей без явного указания.
+
+# ============================
+# Дополнительные коды ошибок
+# ============================
+enable_error_code = [
+    "truthy-bool",          # некорректное поведение в логическом контексте
+    "truthy-iterable",      # аналогично для итерируемых объектов
+    "redundant-expr",       # избыточные выражения (True and x)
+    "unused-awaitable",     # awaitable-объект не используется (забыт await)
+    "possibly-undefined",   # переменная может быть не определена в некоторых ветках
+    "redundant-self",       # метод не использует self (можно staticmethod)
+    "unimported-reveal",    # reveal_type должен быть импортирован из typing
+    "deprecated",           # использование устаревших типов (Iterable вместо Collection)
+    "assignment",           # проверка совместимости типов при присваивании
+    "method-assign",        # переопределение метода с несовместимой сигнатурой
+    "operator",             # применение оператора к неподдерживаемому типу
+    "ignore-without-code",  # # type: ignore без указания кода ошибки
+]
+
+# ============================
+# Отключение кодов ошибок (disable_error_code)
+# ============================
+disable_error_code = []
+# Не отключать никакие ошибки.
