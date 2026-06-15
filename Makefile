@@ -1,10 +1,28 @@
-.PHONY: generate-api-routers-models
+.PHONY: pre-commit-install pre-commit-run pre-commit-uninstall generate-api-routers-models
 
+# Переменные для pre-commit команд
+PRE_COMMIT = pre-commit
+CONFIG_FLAG = --config=.pre-commit-config.yaml
+
+# Переменные для openapi генерации
 OPENAPI_FILE := docs/architecture/api/openapi.yaml
 OUTPUT_DIR := src/presentation
 MODEL_FILE := dtos/models.py
 
-generate-api-routers-models:
+# Установка хуков в git
+pre-commit-install:
+	$(PRE_COMMIT) install $(CONFIG_FLAG)
+
+# Запуск проверки всех файлов проекта (тестовый)
+pre-commit-run:
+	$(PRE_COMMIT) run --all-files $(CONFIG_FLAG)
+
+# Удаление хуков из git
+pre-commit-uninstall:
+	$(PRE_COMMIT) uninstall
+
+# Генерация API моделей из openapi схемы
+generate-api-models:
 	fastapi-codegen --input $(OPENAPI_FILE) \
 		--output $(OUTPUT_DIR) \
 		--output-model-type pydantic_v2.BaseModel \
