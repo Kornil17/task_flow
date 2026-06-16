@@ -1,7 +1,7 @@
 from typing import final
 
 from pydantic import Field
-from pydantic.v1 import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 @final
@@ -19,6 +19,28 @@ class Settings(BaseSettings):
         description="Кол-во процессов приложения.",
         ge=1,
         le=10,
+    )
+    reload: bool = Field(
+        description="Флаг динамечской подгрузки изменений в приложение.",
+        default=False,
+    )
+    # ----------------------------------------
+    # Настройки web_api ----------------------
+    title: str = Field(
+        description="Заголовок приложения",
+        default="Task Flow",
+    )
+    description: str = Field(
+        description="Описание приложения",
+        default="Сервис для управления задачами.",
+    )
+    version: str = Field(
+        description="Версия приложения.",
+        default="0.1.0",
+    )
+    debug: bool = Field(
+        description="Режим дебага приложения",
+        default=False,
     )
     # ----------------------------------------
 
