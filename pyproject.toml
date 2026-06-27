@@ -20,6 +20,7 @@ dependencies = [
     "dependency-injector==4.49.0",
     "uvicorn==0.49.0",
     "pydantic-settings==2.14.1",
+    "pydantic[email]==2.13.4",
 ]
 
 [dependency-groups]
@@ -140,6 +141,7 @@ ignore = [
     "PLR09",  # слишком много локальных переменных (нестабильное правило)
     "PLR6301",# метод не использует self – не требует переделки в staticmethod всегда
     "TRY003", # длинное сообщение исключения вне класса – часто бывает удобно
+    "ERA001", # комментарии вне кода
 ]
 
 exclude = ["init.py"]
