@@ -1,5 +1,3 @@
-from http import HTTPMethod, HTTPStatus
-
 from dependency_injector.containers import DeclarativeContainer
 from dependency_injector.providers import (
     AttributeGetter,
@@ -10,13 +8,19 @@ from dependency_injector.providers import (
 )
 from fastapi import APIRouter
 
-from src.presentation.dtos.models import (
-    Comment,
-    Error,
-    Task,
-    User,
+from di.api_routes_config import (
+    ADD_COMMENTS,
+    ASSIGN_EXECUTOR,
+    CREATE_TASK,
+    CREATE_USER,
+    DELETE_TASK,
+    EDIT_TASK,
+    GET_COMMENTS,
+    GET_TASK,
+    GET_USER,
+    UPDATE_DEADLINE,
+    UPDATE_STATUS,
 )
-from src.presentation.routers.constants import MODEL_NAME
 from src.presentation.routers.tasks import TasksRouter
 from src.presentation.routers.users import UsersRouter
 
@@ -34,94 +38,15 @@ class ApiRoutesContainer(DeclarativeContainer):
             tags=["tasks"],
         ),
         _routes_config_data=List(
-            Dict(
-                path="/{task_id}",
-                endpoint="get",
-                methods=[HTTPMethod.GET],
-                responses={
-                    HTTPStatus.OK: {MODEL_NAME: Task},
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: Error},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="/{task_id}",
-                endpoint="delete",
-                methods=[HTTPMethod.DELETE],
-                responses={
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: Error},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="/{task_id}",
-                endpoint="edit",
-                methods=[HTTPMethod.PATCH],
-                responses={
-                    HTTPStatus.OK: {MODEL_NAME: Task},
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: Error},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="",
-                endpoint="create",
-                methods=[HTTPMethod.POST],
-                responses={
-                    HTTPStatus.CREATED: {MODEL_NAME: Task},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="/{task_id}/executor",
-                endpoint="assign_executor",
-                methods=[HTTPMethod.POST],
-                responses={
-                    HTTPStatus.OK: {MODEL_NAME: Task},
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: Error},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="/{task_id}/status",
-                endpoint="update_status",
-                methods=[HTTPMethod.PATCH],
-                responses={
-                    HTTPStatus.OK: {MODEL_NAME: Task},
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: Error},
-                    HTTPStatus.BAD_REQUEST: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="/{task_id}/deadline",
-                endpoint="update_deadline",
-                methods=[HTTPMethod.PATCH],
-                responses={
-                    HTTPStatus.OK: {MODEL_NAME: Task},
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: Error},
-                    HTTPStatus.BAD_REQUEST: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="/{task_id}/comments",
-                endpoint="add_comments",
-                methods=[HTTPMethod.POST],
-                responses={
-                    HTTPStatus.CREATED: {MODEL_NAME: Comment},
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: Error},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="/{task_id}/comments",
-                endpoint="get_comments",
-                methods=[HTTPMethod.GET],
-                responses={
-                    HTTPStatus.OK: {MODEL_NAME: Comment},
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: Error},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
+            Dict(GET_TASK),
+            Dict(DELETE_TASK),
+            Dict(EDIT_TASK),
+            Dict(CREATE_TASK),
+            Dict(ASSIGN_EXECUTOR),
+            Dict(UPDATE_STATUS),
+            Dict(UPDATE_DEADLINE),
+            Dict(ADD_COMMENTS),
+            Dict(GET_COMMENTS),
         ),
     )
     user_routes = Singleton(
@@ -132,25 +57,8 @@ class ApiRoutesContainer(DeclarativeContainer):
             tags=["users"],
         ),
         _routes_config_data=List(
-            Dict(
-                path="",
-                endpoint="create",
-                methods=[HTTPMethod.POST],
-                responses={
-                    HTTPStatus.CREATED: {MODEL_NAME: User},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
-            Dict(
-                path="/{user_id}",
-                endpoint="get",
-                methods=[HTTPMethod.GET],
-                responses={
-                    HTTPStatus.CREATED: {MODEL_NAME: User},
-                    HTTPStatus.NOT_FOUND: {MODEL_NAME: User},
-                    HTTPStatus.INTERNAL_SERVER_ERROR: {MODEL_NAME: Error},
-                },
-            ),
+            Dict(CREATE_USER),
+            Dict(GET_USER),
         ),
     )
     user_router = AttributeGetter(user_routes, "router")
