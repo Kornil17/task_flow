@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Annotated, final
 
-from fastapi import APIRouter, Body
+from fastapi import Body
 
 from src.presentation.dtos.models import (
     AppointmentExecutorTaskData,
@@ -14,26 +14,13 @@ from src.presentation.dtos.models import (
     UpdateDeadlineData,
     UpdateStatusData,
 )
-from src.presentation.routers import RoterConfigData
+from src.presentation.routers.base import BaseRouter
 
 
 @final
 @dataclass(slots=True, frozen=True, kw_only=True)
-class TasksRouter:
+class TasksRouter(BaseRouter):
     """Обработчик API запросов по задачам."""
-
-    _base_router: APIRouter
-    _routes_config_data: list[RoterConfigData]
-
-    def __post_init__(self) -> None:
-        """Регистрация обработчиков в базовый роут."""
-        for router_config in self._routes_config_data:
-            self._base_router.add_api_route(
-                **{
-                    **router_config,
-                    "endpoint": getattr(self, router_config["endpoint"]),
-                },
-            )
 
     async def get(self, task_id: int) -> Task | Error:  # type: ignore[empty-body]
         """Получение задачи по ID."""
@@ -88,8 +75,3 @@ class TasksRouter:
         comment_data: Annotated[CommentsTaskData, Body()],
     ) -> Comment | Error:
         """Получение комментариев из задачи."""
-
-    @property
-    def router(self) -> APIRouter:
-        """Возращаем базовый обогащенный API обработчик."""
-        return self._base_router
