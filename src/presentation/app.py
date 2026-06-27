@@ -1,30 +1,30 @@
+from dataclasses import dataclass
 from typing import final
 
 import uvicorn
-from dependency_injector.wiring import Provide, inject
 from uvicorn._types import ASGIApplication
 
-from di.application import ApplicationContainer, application_container
 from src.infrastructure.configuration import settings
 
 
 @final
+@dataclass(slots=True, frozen=True, kw_only=True)
 class Application:
     """Класс запуска приложения."""
 
-    @inject
-    async def run(
-        self,
-        web_app: ASGIApplication = Provide[ApplicationContainer.web_app_container.app],
-    ) -> None:
+    _web_app: ASGIApplication
+
+    async def run(self) -> None:
+        """Запуск приложения."""
+        await self._run_server()
+
+    async def _run_server(self) -> None:
+        """Запуск сервера ASGI."""
         config = uvicorn.Config(
-            app=web_app,
+            app=self._web_app,
             host=settings.host,
             port=settings.port,
             workers=settings.instances,
             reload=settings.reload,
         )
         await uvicorn.Server(config).serve()
-
-
-application_container.wire(modules=[__name__])
