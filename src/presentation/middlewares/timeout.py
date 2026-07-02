@@ -7,6 +7,8 @@ from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoin
 from starlette.requests import Request
 from starlette.responses import Response
 
+from src.infrastructure.configuration import settings
+
 
 _logger = logging.getLogger("presentation")
 
@@ -14,7 +16,7 @@ _logger = logging.getLogger("presentation")
 class TimeoutMiddleware(BaseHTTPMiddleware):
     """Промежуточный слой ограничения времени обработки запроса."""
 
-    _timeout: ClassVar[int]
+    _request_timeout: ClassVar[float] = settings.request_timeout
 
     async def dispatch(
         self,
@@ -23,14 +25,14 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
     ) -> Response:
         """Ограничение времени обработки запроса."""
         try:
-            async with asyncio.timeout(self._timeout):
+            async with asyncio.timeout(self._request_timeout):
                 return await call_next(request)
         except TimeoutError:
             _logger.warning(
                 "Request timed out: %s '%s' after %s",
                 request.method,
                 request.url.path,
-                self._timeout,
+                self._request_timeout,
             )
             return Response(
                 status_code=HTTPStatus.REQUEST_TIMEOUT,
