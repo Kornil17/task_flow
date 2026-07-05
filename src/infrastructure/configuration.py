@@ -42,6 +42,12 @@ class Settings(BaseSettings):
         description="Режим дебага приложения",
         default=False,
     )
+    request_timeout: float = Field(
+        description="Таймаут на выполнение запроса.",
+        gt=0,
+        lt=60,
+        default=30.0,
+    )
     # ----------------------------------------
 
     class Config:
