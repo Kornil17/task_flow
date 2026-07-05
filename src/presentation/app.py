@@ -1,3 +1,4 @@
+import asyncio
 import logging
 from collections.abc import Iterable
 from dataclasses import dataclass, field
@@ -7,10 +8,11 @@ import uvicorn
 from fastapi import APIRouter, FastAPI
 from starlette.middleware.base import BaseHTTPMiddleware
 
+from logger.config import setup_logger
 from src.infrastructure.configuration import settings
 
 
-_logger = logging.getLogger("root")
+_logger = logging.getLogger("application")
 
 
 @final
@@ -25,6 +27,7 @@ class Application:
 
     async def run(self) -> None:
         """Запуск приложения."""
+        await asyncio.to_thread(setup_logger)
         self._logger.debug("Start registration app routes.")
         await self._registration_api_routes()
         self._logger.debug("Start registration app middlewares.")
