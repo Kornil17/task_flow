@@ -12,7 +12,7 @@ from logger.config import setup_logger
 from src.infrastructure.configuration import settings
 
 
-_logger = logging.getLogger("application")
+_logger = logging.getLogger("presentation")
 
 
 @final
