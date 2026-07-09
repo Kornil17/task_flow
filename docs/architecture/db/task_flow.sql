@@ -27,7 +27,9 @@ CREATE TABLE "comments" (
   "content" text NOT NULL,
   "user_id" integer NOT NULL,
   "task_id" integer NOT NULL,
-  "created_at" timestamp DEFAULT (NOW())
+  "created_at" timestamp DEFAULT (NOW()),
+  "updated_at" timestamp DEFAULT (NOW()),
+  "deleted_at" timestamp
 );
 
 CREATE TABLE "status" (
@@ -50,8 +52,12 @@ CREATE INDEX ON "comments" ("task_id");
 CREATE INDEX ON "comments" ("user_id");
 
 COMMENT ON COLUMN "tasks"."created_at" IS 'Автоматически при создании';
+COMMENT ON COLUMN "user"."created_at" IS 'Автоматически при создании';
+COMMENT ON COLUMN "comments"."created_at" IS 'Автоматически при создании';
 
 COMMENT ON COLUMN "tasks"."updated_at" IS 'Автоматически обновляется при UPDATE';
+COMMENT ON COLUMN "user"."updated_at" IS 'Автоматически обновляется при UPDATE';
+COMMENT ON COLUMN "comments"."updated_at" IS 'Автоматически обновляется при UPDATE';
 
 ALTER TABLE "tasks" ADD FOREIGN KEY ("status_id") REFERENCES "status" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 

@@ -29,8 +29,8 @@ Table users {
   surname varchar [not null]
   email varchar [not null, unique]
   role varchar [not null]
-  created_at timestamp [default: `NOW()`]
-  updated_at timestamp [default: `NOW()`]
+  created_at timestamp [default: `NOW()`, note: 'Автоматически при создании']
+  updated_at timestamp [default: `NOW()`, note: 'Автоматически обновляется при UPDATE']
   deleted_at timestamp
 
   indexes {
@@ -44,7 +44,9 @@ Table comments {
   content text [not null]
   user_id integer [not null]
   task_id integer [not null]
-  created_at timestamp [default: `NOW()`]
+  created_at timestamp [default: `NOW()`, note: 'Автоматически при создании']
+  updated_at timestamp [default: `NOW()`, note: 'Автоматически обновляется при UPDATE']
+  deleted_at timestamp
 
   indexes {
     task_id
