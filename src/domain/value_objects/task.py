@@ -13,8 +13,8 @@ from src.domain.value_objects import (
     IdValueObject,
     IntValueObject,
     StringValueObject,
+    ValueObject,
 )
-from src.domain.value_objects.common import ValueObject
 
 
 @unique

@@ -3,6 +3,7 @@ from .common import (
     IdValueObject,
     IntValueObject,
     StringValueObject,
+    ValueObject,
 )
 from .task import (
     TaskContent,
@@ -15,7 +16,14 @@ from .task import (
     TaskUpdatedAt,
 )
 from .user import (
+    UserCreatedAt,
+    UserDeletedAt,
+    UserEmail,
     UserID,
+    UserName,
+    UserRole,
+    UserSurname,
+    UserUpdatedAt,
 )
 
 
@@ -32,5 +40,13 @@ __all__ = (
     "TaskName",
     "TaskStatusID",
     "TaskUpdatedAt",
+    "UserCreatedAt",
+    "UserDeletedAt",
+    "UserEmail",
     "UserID",
+    "UserName",
+    "UserRole",
+    "UserSurname",
+    "UserUpdatedAt",
+    "ValueObject",
 )

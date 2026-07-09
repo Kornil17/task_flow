@@ -10,6 +10,12 @@ from .task import (
     TaskNameInvalidError,
     TaskStatusInvalidError,
 )
+from .user import (
+    UserEmailInvalidError,
+    UserNameInvalidError,
+    UserRoleInvalidError,
+    UserSurnameInvalidError,
+)
 
 
 __all__ = (
@@ -21,4 +27,8 @@ __all__ = (
     "TaskDeadlineInvalidError",
     "TaskNameInvalidError",
     "TaskStatusInvalidError",
+    "UserEmailInvalidError",
+    "UserNameInvalidError",
+    "UserRoleInvalidError",
+    "UserSurnameInvalidError",
 )

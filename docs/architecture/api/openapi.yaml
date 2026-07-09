@@ -504,7 +504,13 @@ components:
       properties:
         name:
           type: string
-          example: Ivan Petrov
+          example: Ivan
+        surname:
+          type: string
+          example: Petrov
+        role:
+          type: string
+          example: Admin
         email:
           type: string
           format: email
@@ -569,6 +575,12 @@ components:
         name:
           type: string
           example: Ivan Petrov
+        surname:
+          type: string
+          example: Petrov
+        role:
+          type: string
+          example: Admin
         email:
           type: string
           format: email
