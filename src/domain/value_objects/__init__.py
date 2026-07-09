@@ -1,3 +1,10 @@
+from .comment import (
+    CommentContent,
+    CommentCreatedAt,
+    CommentDeletedAt,
+    CommentID,
+    CommentUpdatedAt,
+)
 from .common import (
     DatetimeValueObject,
     IdValueObject,
@@ -28,6 +35,11 @@ from .user import (
 
 
 __all__ = (
+    "CommentContent",
+    "CommentCreatedAt",
+    "CommentDeletedAt",
+    "CommentID",
+    "CommentUpdatedAt",
     "DatetimeValueObject",
     "IdValueObject",
     "IntValueObject",

@@ -545,6 +545,10 @@ components:
           type: string
           format: date-time
           example: "2026-06-05T10:10:00Z"
+        deleted_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:10:00Z"
 
     Comment:
       type: object
@@ -565,6 +569,14 @@ components:
           type: string
           format: date-time
           example: "2026-06-05T10:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:10:00Z"
+        deleted_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:10:00Z"
 
     User:
       type: object
@@ -589,6 +601,14 @@ components:
           type: string
           format: date-time
           example: "2026-06-05T10:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:10:00Z"
+        deleted_at:
+          type: string
+          format: date-time
+          example: "2026-06-05T10:10:00Z"
 
     Error:
       type: object

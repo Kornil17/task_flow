@@ -1,3 +1,6 @@
+from .comment import (
+    CommentContentInvalidError,
+)
 from .common import (
     InvalidDatetimeError,
     InvalidIdError,
@@ -19,6 +22,7 @@ from .user import (
 
 
 __all__ = (
+    "CommentContentInvalidError",
     "InvalidDatetimeError",
     "InvalidIdError",
     "InvalidIntError",
