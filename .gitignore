@@ -224,3 +224,6 @@ __marimo__/
 logs/
 logs_*/
 log*
+
+# migrations
+yoyo-local.ini

@@ -1,4 +1,4 @@
-.PHONY: pre-commit-install pre-commit-run pre-commit-uninstall generate-api-routers-models
+.PHONY: pre-commit-install pre-commit-run pre-commit-uninstall generate-api-routers-models migrate-init migrate-new migrate-up migrate-down migrate-status
 
 # Переменные для pre-commit команд
 PRE_COMMIT = pre-commit
@@ -38,3 +38,25 @@ generate-api-models:
 	else \
 		echo "Warning: main.py not found, skipping routers remove"; \
 	fi
+
+# Создать таблицу миграций и применить все новые
+# make migrate-init DATABASE_URL="postgresql+psycopg://name:password@host:port/name"
+migrate-init:
+	yoyo init --database "$(DATABASE_URL)" src/infrastructure/persistence/migrations
+
+# Создать новую миграцию
+# make migrate-new NAME=create_users
+migrate-new:
+	yoyo new migrations -m "$(NAME)"
+
+# Применить все миграции
+migrate-up:
+	yoyo apply
+
+# Откатить последнюю миграцию
+migrate-down:
+	yoyo rollback -r 1
+
+# Показать статус миграций
+migrate-status:
+	yoyo list
