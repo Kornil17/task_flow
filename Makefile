@@ -47,15 +47,16 @@ migrate-init:
 # Создать новую миграцию
 # make migrate-new NAME=create_users
 migrate-new:
-	yoyo new migrations -m "$(NAME)"
+	yoyo new --sql -m "$(NAME)"
 
 # Применить все миграции
 migrate-up:
 	yoyo apply
 
-# Откатить последнюю миграцию
+# Откатить миграцию до указанной
+# make migrate-down NAME=.*_Mrkqq-.*
 migrate-down:
-	yoyo rollback -r 1
+	yoyo rollback -r "$(NAME)"
 
 # Показать статус миграций
 migrate-status:
