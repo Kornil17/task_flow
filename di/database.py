@@ -9,8 +9,11 @@ class DBContainer(DeclarativeContainer):
     config = Configuration()
     db_pool = Resource(
         create_pool,
-        dsn=f"postgres://{config.db_user}:{config.db_password}@{config.db_host}:{config.db_port}/{config.db_name}",
+        user=config.db_user,
+        password=config.db_password,
+        host=config.db_host,
+        port=config.db_port,
+        database=config.db_name,
         min_size=config.db_min_pool_size,
         max_size=config.db_max_pool_size,
-        max_inactive_connection_lifetime=config.db_max_connection_life_time,
     )
