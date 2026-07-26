@@ -25,6 +25,7 @@ dependencies = [
     "psycopg==3.3.4",
     "psycopg-binary==3.3.4",
     "asyncpg==0.31.0",
+    "asyncpg-stubs==0.31.3",
 ]
 
 [dependency-groups]
@@ -251,8 +252,8 @@ exclude = ["tests/", "venv/"]
 # ============================
 # Повышение строгости (дополнительные флаги)
 # ============================
-ignore_missing_imports = true
-# Игнорировать отсутствие stub-файлов.
+ignore_missing_imports = false
+# Не игнорировать отсутствие stub-файлов.
 
 implicit_reexport = false
 # Запрещает неявный реэкспорт (требует явного указания в __all__).

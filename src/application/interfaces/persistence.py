@@ -1,5 +1,5 @@
 from enum import StrEnum, unique
-from typing import Any, Protocol
+from typing import Protocol
 
 
 @unique
@@ -12,7 +12,13 @@ class IsolationLevel(StrEnum):
     READ_UNCOMMITTED = "READ UNCOMMITTED"
 
 
-class IDBClient[TransactionObject, Params](Protocol):
+class IDBClient[
+    ConnectionObject,
+    TransactionObject,
+    Params,
+    QueryResponse,
+    CommandResponse,
+](Protocol):
     """Декларация контракта клиента БД."""
 
     async def begin(
@@ -21,27 +27,33 @@ class IDBClient[TransactionObject, Params](Protocol):
         isolation_level: IsolationLevel | None = None,
         read_only: bool = False,
         timeout_ms: int | None = None,
-    ) -> TransactionObject:
+    ) -> tuple[ConnectionObject, TransactionObject]:
         """Начало транзакции."""
 
-    async def commit(self) -> None:
+    async def commit(
+        self,
+        transaction: TransactionObject,
+    ) -> None:
         """Фиксация транзакции."""
 
-    async def rollback(self) -> None:
+    async def rollback(
+        self,
+        transaction: TransactionObject,
+    ) -> None:
         """Откат транзакции."""
 
     async def execute_query(
         self,
-        connection: TransactionObject,
+        connection: ConnectionObject,
         query: str,
         params: Params | None = None,
-    ) -> list[dict[str, Any]]:
+    ) -> QueryResponse:
         """Выполняет SELECT-запрос и возвращает список строк."""
 
     async def execute_command(
         self,
-        connection: TransactionObject,
+        connection: ConnectionObject,
         query: str,
         params: Params | None = None,
-    ) -> int:
+    ) -> CommandResponse:
         """Выполняет INSERT/UPDATE/DELETE, возвращает количество затрагиваемых строк."""
