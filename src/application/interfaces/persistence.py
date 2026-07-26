@@ -1,15 +1,4 @@
-from enum import StrEnum, unique
-from typing import Protocol
-
-
-@unique
-class IsolationLevel(StrEnum):
-    """Уровни изоляции транзакций."""
-
-    READ_COMMITTED = "READ COMMITTED"
-    REPEATABLE_READ = "REPEATABLE READ"
-    SERIALIZABLE = "SERIALIZABLE"
-    READ_UNCOMMITTED = "READ UNCOMMITTED"
+from typing import Literal, Protocol
 
 
 class IDBClient[
@@ -24,9 +13,14 @@ class IDBClient[
     async def begin(
         self,
         *,
-        isolation_level: IsolationLevel | None = None,
-        read_only: bool = False,
-        timeout_ms: int | None = None,
+        isolation_level: Literal[
+            "read_committed",
+            "read_uncommitted",
+            "serializable",
+            "repeatable_read",
+        ]
+        | None = None,
+        readonly: bool = False,
     ) -> tuple[ConnectionObject, TransactionObject]:
         """Начало транзакции."""
 

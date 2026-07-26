@@ -1,11 +1,9 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Literal
 
 from asyncpg import Pool
 from asyncpg.pool import PoolConnectionProxy
 from asyncpg.transaction import Transaction
-
-from src.application.interfaces.persistence import IsolationLevel
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -17,17 +15,26 @@ class PostgresDBClient:
     async def begin(
         self,
         *,
-        isolation_level: IsolationLevel | None = None,
-        read_only: bool = False,
-        timeout_ms: int | None = None,
+        isolation_level: Literal[
+            "read_committed",
+            "read_uncommitted",
+            "serializable",
+            "repeatable_read",
+        ]
+        | None = None,
+        readonly: bool = False,
     ) -> tuple[PoolConnectionProxy, Transaction]:
         """Начало транзакции."""
-        async with self._pool_clients.acquire() as connection:
-            return connection, await connection.begin(  # type: ignore[attr-defined]
-                isolation=isolation_level,
-                read_only=read_only,
-                timeout=timeout_ms,
-            )
+        connection = await self._pool_clients.acquire()
+
+        tx = connection.transaction(
+            isolation=isolation_level,
+            readonly=readonly,
+        )
+
+        await tx.start()
+
+        return connection, tx
 
     async def commit(
         self,
