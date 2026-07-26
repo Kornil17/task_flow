@@ -16,7 +16,7 @@ _MODEL_NAME: Annotated[
 ] = "models"
 
 
-GET_TASK = RouterConfigData(
+GET_TASK = RouterConfigData[Task, Error](
     path="/{task_id}",
     endpoint="get",
     methods=[HTTPMethod.GET],
@@ -28,7 +28,7 @@ GET_TASK = RouterConfigData(
 )
 
 
-DELETE_TASK = RouterConfigData(
+DELETE_TASK = RouterConfigData[Task, Error](
     path="/{task_id}",
     endpoint="delete",
     methods=[HTTPMethod.DELETE],
@@ -39,7 +39,7 @@ DELETE_TASK = RouterConfigData(
 )
 
 
-EDIT_TASK = RouterConfigData(
+EDIT_TASK = RouterConfigData[Task, Error](
     path="/{task_id}",
     endpoint="edit",
     methods=[HTTPMethod.PATCH],
@@ -51,7 +51,7 @@ EDIT_TASK = RouterConfigData(
 )
 
 
-CREATE_TASK = RouterConfigData(
+CREATE_TASK = RouterConfigData[Task, Error](
     path="",
     endpoint="create",
     methods=[HTTPMethod.POST],
@@ -62,7 +62,7 @@ CREATE_TASK = RouterConfigData(
 )
 
 
-ASSIGN_EXECUTOR = RouterConfigData(
+ASSIGN_EXECUTOR = RouterConfigData[Task, Error](
     path="/{task_id}/executor",
     endpoint="assign_executor",
     methods=[HTTPMethod.POST],
@@ -74,7 +74,7 @@ ASSIGN_EXECUTOR = RouterConfigData(
 )
 
 
-UPDATE_STATUS = RouterConfigData(
+UPDATE_STATUS = RouterConfigData[Task, Error](
     path="/{task_id}/status",
     endpoint="update_status",
     methods=[HTTPMethod.PATCH],
@@ -86,7 +86,7 @@ UPDATE_STATUS = RouterConfigData(
 )
 
 
-UPDATE_DEADLINE = RouterConfigData(
+UPDATE_DEADLINE = RouterConfigData[Task, Error](
     path="/{task_id}/deadline",
     endpoint="update_deadline",
     methods=[HTTPMethod.PATCH],
@@ -98,7 +98,7 @@ UPDATE_DEADLINE = RouterConfigData(
 )
 
 
-ADD_COMMENTS = RouterConfigData(
+ADD_COMMENTS = RouterConfigData[Comment, Error](
     path="/{task_id}/comments",
     endpoint="add_comments",
     methods=[HTTPMethod.POST],
@@ -110,7 +110,7 @@ ADD_COMMENTS = RouterConfigData(
 )
 
 
-GET_COMMENTS = RouterConfigData(
+GET_COMMENTS = RouterConfigData[Comment, Error](
     path="/{task_id}/comments",
     endpoint="get_comments",
     methods=[HTTPMethod.GET],
@@ -122,7 +122,7 @@ GET_COMMENTS = RouterConfigData(
 )
 
 
-CREATE_USER = RouterConfigData(
+CREATE_USER = RouterConfigData[User, Error](
     path="",
     endpoint="create",
     methods=[HTTPMethod.POST],
@@ -133,7 +133,7 @@ CREATE_USER = RouterConfigData(
 )
 
 
-GET_USER = RouterConfigData(
+GET_USER = RouterConfigData[User, Error](
     path="/{user_id}",
     endpoint="get",
     methods=[HTTPMethod.GET],
