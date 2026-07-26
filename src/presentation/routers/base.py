@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from fastapi import APIRouter
+from pydantic import BaseModel
 
 from src.presentation.routers import RouterConfigData
 
@@ -10,7 +11,7 @@ class BaseRouter:
     """Обработчик API запросов по пользователям."""
 
     _base_router: APIRouter
-    _routes_config_data: list[RouterConfigData]
+    _routes_config_data: list[RouterConfigData[BaseModel, BaseModel]]
 
     def __post_init__(self) -> None:
         """Регистрация обработчиков в базовый роут."""

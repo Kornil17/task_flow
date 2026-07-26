@@ -1,6 +1,8 @@
 from asyncpg import create_pool
 from dependency_injector.containers import DeclarativeContainer
-from dependency_injector.providers import Configuration, Resource
+from dependency_injector.providers import Configuration, Resource, Singleton
+
+from src.infrastructure.persistence.db_client import PostgresDBClient
 
 
 class DBContainer(DeclarativeContainer):
@@ -16,4 +18,8 @@ class DBContainer(DeclarativeContainer):
         database=config.db_name,
         min_size=config.db_min_pool_size,
         max_size=config.db_max_pool_size,
+    )
+    db_client = Singleton(
+        PostgresDBClient,
+        _pool_clients=db_pool,
     )

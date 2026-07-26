@@ -25,6 +25,7 @@ dependencies = [
     "psycopg==3.3.4",
     "psycopg-binary==3.3.4",
     "asyncpg==0.31.0",
+    "asyncpg-stubs==0.31.3",
 ]
 
 [dependency-groups]
