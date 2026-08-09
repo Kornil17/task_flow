@@ -4,19 +4,21 @@ from typing import Literal, Protocol
 from asyncpg.pool import PoolConnectionProxy
 
 
+IsolationLevel = Literal[
+    "read_committed",
+    "read_uncommitted",
+    "serializable",
+    "repeatable_read",
+]
+
+
 class IDBTransactionManager:
     """Декларация контракта для менеджера управления транзакциями БД."""
 
     async def start(
         self,
         *,
-        isolation_level: Literal[
-            "read_committed",
-            "read_uncommitted",
-            "serializable",
-            "repeatable_read",
-        ]
-        | None = None,
+        isolation_level: IsolationLevel | None = None,
         readonly: bool = False,
     ) -> AsyncGenerator[PoolConnectionProxy]:
         """Старт транзакции."""
