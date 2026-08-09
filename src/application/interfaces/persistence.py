@@ -1,4 +1,25 @@
+from collections.abc import AsyncGenerator
 from typing import Literal, Protocol
+
+from asyncpg.pool import PoolConnectionProxy
+
+
+class IDBTransactionManager:
+    """Декларация контракта для менеджера управления транзакциями БД."""
+
+    async def start(
+        self,
+        *,
+        isolation_level: Literal[
+            "read_committed",
+            "read_uncommitted",
+            "serializable",
+            "repeatable_read",
+        ]
+        | None = None,
+        readonly: bool = False,
+    ) -> AsyncGenerator[PoolConnectionProxy]:
+        """Старт транзакции."""
 
 
 class IDBClient[

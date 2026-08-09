@@ -3,6 +3,9 @@ from dependency_injector.containers import DeclarativeContainer
 from dependency_injector.providers import Configuration, Resource, Singleton
 
 from src.infrastructure.persistence.db_client import PostgresDBClient
+from src.infrastructure.persistence.db_transaction_manager import (
+    PostgresDBTransactionManager,
+)
 
 
 class DBContainer(DeclarativeContainer):
@@ -22,4 +25,8 @@ class DBContainer(DeclarativeContainer):
     db_client = Singleton(
         PostgresDBClient,
         _pool_clients=db_pool,
+    )
+    db_transaction_manager = Singleton(
+        PostgresDBTransactionManager,
+        _db_client=db_client,
     )
