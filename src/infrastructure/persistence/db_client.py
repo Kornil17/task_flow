@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from logging import Logger, getLogger
 from typing import Any
 
-from asyncpg import Pool
+from asyncpg import Pool, Record
 from asyncpg.pool import PoolConnectionProxy
 from asyncpg.transaction import Transaction
 
@@ -57,9 +57,11 @@ class PostgresDBClient:
         await self._transaction.start()
 
         self._logger.debug(
-            "Transaction started: transaction_id=%s connection=%s.",
+            "Transaction started: transaction_id=%s, "
+            "transaction_state='%s', connection=%s.",
             self._transaction._id,
-            str(self._connection),
+            self._transaction._state,
+            id(self._connection),
         )
 
     async def commit(self) -> None:
@@ -68,14 +70,15 @@ class PostgresDBClient:
             raise RuntimeError("Transaction is not started.")
 
         self._logger.debug(
-            "Start commit transaction id=%s.",
+            "Start commit transaction_id=%s, transaction_state='%s'.",
             self._transaction._id,
+            self._transaction._state,
         )
 
         await self._transaction.commit()
 
         self._logger.debug(
-            "Transaction committed: transaction_id=%s state=%s.",
+            "Transaction committed: transaction_id=%s, transaction_state='%s'.",
             self._transaction._id,
             self._transaction._state,
         )
@@ -86,14 +89,15 @@ class PostgresDBClient:
             raise RuntimeError("Transaction is not started.")
 
         self._logger.debug(
-            "Start rollback transaction id=%s.",
+            "Start rollback transaction_id='%s', transaction_state='%s'.",
             self._transaction._id,
+            self._transaction._state,
         )
 
         await self._transaction.rollback()
 
         self._logger.debug(
-            "Transaction rolled back: transaction_id=%s state=%s.",
+            "Transaction rolled back: transaction_id='%s', transaction_state='%s'.",
             self._transaction._id,
             self._transaction._state,
         )
@@ -102,7 +106,7 @@ class PostgresDBClient:
         self,
         query: str,
         params: dict[str, Any] | None = None,
-    ) -> list[dict[str, Any]]:
+    ) -> list[Record]:
         """Выполняет SELECT-запрос и возвращает список строк."""
         if not self._connection:
             raise RuntimeError(
@@ -112,7 +116,7 @@ class PostgresDBClient:
             "Execute query='%s' with params='%s' by connection=%s",
             query,
             params,
-            str(self._connection),
+            id(self._connection),
         )
         params = params or {}
         query_resp = await self._connection.fetch(
@@ -123,7 +127,7 @@ class PostgresDBClient:
             "Executed query='%s' with params='%s' got resp='%s'.",
             query,
             params,
-            query_resp,
+            [dict(record) for record in query_resp],
         )
         return query_resp  # type: ignore[no-any-return]
 
@@ -141,7 +145,7 @@ class PostgresDBClient:
             "Execute query='%s' with params='%s' by connection=%s",
             query,
             params,
-            str(self._connection),
+            id(self._connection),
         )
         params = params or {}
         query_resp = await self._connection.execute(
@@ -164,7 +168,7 @@ class PostgresDBClient:
 
         self._logger.debug(
             "Release connection='%s' back to pool.",
-            str(self._connection),
+            id(self._connection),
         )
 
         try:
