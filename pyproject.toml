@@ -24,6 +24,8 @@ dependencies = [
     "yoyo-migrations==9.0.0",
     "psycopg==3.3.4",
     "psycopg-binary==3.3.4",
+    "asyncpg==0.31.0",
+    "asyncpg-stubs==0.31.3",
 ]
 
 [dependency-groups]
@@ -169,6 +171,8 @@ external = ["WPS"]
     "S106",   # хардкод пароля (ещё один)
     "S324",   # небезопасная хэш-функция – тесты могут использовать md5 для фикстур
 ]
+"src/infrastructure/persistence/db_transaction_manager.py" = ["SLF001"]  # получение данных из приватного атрибута вне класса (для вывода в лог)
+"src/infrastructure/persistence/db_client.py" = ["SLF001"]  # получение данных из приватного атрибута вне класса (для вывода в лог)
 
 [tool.ruff.lint.pydocstyle]
 # ============================
@@ -303,3 +307,19 @@ enable_error_code = [
 # ============================
 disable_error_code = []
 # Не отключать никакие ошибки.
+
+# Отключение ошибок для конкретных модулей
+[[tool.mypy.overrides]]
+module = "src.infrastructure.persistence.db_transaction_manager"
+disable_error_code = ["attr-defined"]
+# Отключить ошибку ненайденного приватного атрибута. (для аннотации asyncpg)
+
+[[tool.mypy.overrides]]
+module = "src.infrastructure.persistence.db_client"
+disable_error_code = ["attr-defined"]
+# Отключить ошибку ненайденного приватного атрибута. (для аннотации asyncpg)
+
+[[tool.mypy.overrides]]
+module = "src.application.interfaces.persistence"
+disable_error_code = ["empty-body"]
+# Отключить проверку пустого тела функции для интерфейсов

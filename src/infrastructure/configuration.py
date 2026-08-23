@@ -49,6 +49,36 @@ class Settings(BaseSettings):
         default=30.0,
     )
     # ----------------------------------------
+    # Настройки БД ----------------------
+    db_host: str = Field(
+        description="Хост для подключения к БД.",
+    )
+    db_port: int = Field(
+        description="Порт для подключения к БД.",
+    )
+    db_name: str = Field(
+        description="Название подключаемой БД.",
+        default="task_flow",
+    )
+    db_user: str = Field(
+        description="Имя пользователя для подключения к БД.",
+    )
+    db_password: str = Field(
+        description="Пароль пользователя для подключения к БД.",
+    )
+    db_min_pool_size: int = Field(
+        description="Минимальное кол-во коннектов к БД в пуле.",
+    )
+    db_max_pool_size: int = Field(
+        description="Максимальное кол-во коннектов к БД в пуле.",
+    )
+    db_max_connection_life_time: float = Field(
+        description="Максимальное время жизни неиспользуемого "
+        "открытого подключения(s).",
+        gt=30.0,
+        default=300.0,
+    )
+    # ----------------------------------------
 
     class Config:
         env_file = ".env"

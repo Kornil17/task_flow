@@ -1,16 +1,18 @@
 from http import HTTPMethod, HTTPStatus
 from typing import Literal, TypedDict
 
-from src.presentation.dtos.models import Error, Task
 
-
-class RouterConfigData(TypedDict):
+class RouterConfigData[Entity, Error](TypedDict):
     """Конфигурация данных для подключаемого роутера."""
 
     path: str
     endpoint: str
     methods: list[HTTPMethod]
     responses: dict[
-        Literal[HTTPStatus.OK, HTTPStatus.NOT_FOUND, HTTPStatus.INTERNAL_SERVER_ERROR],
-        dict[str, type[Task]] | dict[str, type[Error]],
+        Literal[HTTPStatus.OK]
+        | Literal[HTTPStatus.CREATED]
+        | Literal[HTTPStatus.NOT_FOUND]
+        | Literal[HTTPStatus.INTERNAL_SERVER_ERROR]
+        | Literal[HTTPStatus.BAD_REQUEST],
+        dict[str, type[Entity]] | dict[str, type[Error]],
     ]
