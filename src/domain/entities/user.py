@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.domain.value_objects import (
+from src.domain.value_objects.user import (
     UserCreatedAt,
     UserDeletedAt,
     UserEmail,

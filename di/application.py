@@ -4,6 +4,7 @@ from dependency_injector.providers import Configuration, Container, Singleton
 from di.api_routes import ApiRoutesContainer
 from di.database import DBContainer
 from di.middlewares import MiddlewareContainer
+from di.repository import RepositoryContainer
 from di.web_app import WebAppContainer
 from src.infrastructure.configuration import settings
 from src.presentation.app import Application
@@ -17,6 +18,9 @@ class ApplicationContainer(containers.DeclarativeContainer):
     api_routes_container = Container(ApiRoutesContainer, config=config)
     api_middlewares_container = Container(MiddlewareContainer, config=config)
     database_container = Container(DBContainer, config=config)
+    repository_container = Container(
+        RepositoryContainer, config=config, database=database_container
+    )
 
     application = Singleton(
         Application,

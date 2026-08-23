@@ -8,7 +8,7 @@ from src.domain.exceptions import (
     TaskNameInvalidError,
     TaskStatusInvalidError,
 )
-from src.domain.value_objects import (
+from src.domain.value_objects.common import (
     DatetimeValueObject,
     IdValueObject,
     IntValueObject,

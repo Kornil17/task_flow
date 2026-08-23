@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 from src.domain.exceptions import CommentContentInvalidError
-from src.domain.value_objects import (
+from src.domain.value_objects.common import (
     DatetimeValueObject,
     IdValueObject,
     StringValueObject,

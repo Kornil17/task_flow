@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.domain.value_objects import (
+from src.domain.value_objects.task import (
     TaskContent,
     TaskCreatedAt,
     TaskDeadlineDays,
@@ -9,8 +9,8 @@ from src.domain.value_objects import (
     TaskName,
     TaskStatusID,
     TaskUpdatedAt,
-    UserID,
 )
+from src.domain.value_objects.user import UserID
 
 
 @dataclass(slots=True, frozen=True, kw_only=True)

@@ -16,11 +16,11 @@ from src.presentation.routers.base import BaseRouter
 class UsersRouter(BaseRouter):
     """Обработчик API запросов по пользователям."""
 
-    async def create(  # type: ignore[empty-body]
+    async def create(
         self,
         user_data: Annotated[CreateUserData, Body()],
     ) -> User | Error:
         """Создание пользователя."""
 
-    async def get(self, user_id: int) -> User | Error:  # type: ignore[empty-body]
-        """Создание пользователя."""
+    async def get(self, user_id: int) -> User | Error:
+        """Получение пользователя."""

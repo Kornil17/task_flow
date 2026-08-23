@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 
-from src.domain.value_objects import (
+from src.domain.value_objects.comment import (
     CommentContent,
     CommentCreatedAt,
     CommentDeletedAt,
     CommentID,
     CommentUpdatedAt,
-    TaskID,
-    UserID,
 )
+from src.domain.value_objects.task import TaskID
+from src.domain.value_objects.user import UserID
 
 
 @dataclass(slots=True, frozen=True, kw_only=True)

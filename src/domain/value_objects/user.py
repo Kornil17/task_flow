@@ -9,7 +9,7 @@ from src.domain.exceptions import (
     UserRoleInvalidError,
     UserSurnameInvalidError,
 )
-from src.domain.value_objects import (
+from src.domain.value_objects.common import (
     DatetimeValueObject,
     IdValueObject,
     StringValueObject,
