@@ -5,7 +5,7 @@ from logging import Logger, getLogger
 
 from asyncpg import InterfaceError
 
-from src.application.interfaces.persistence import IsolationLevel
+from src.application.ports.persistence import IsolationLevel
 from src.infrastructure.persistence.db_client import PostgresDBClient
 
 

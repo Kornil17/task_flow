@@ -6,7 +6,7 @@ from asyncpg import Pool, Record
 from asyncpg.pool import PoolConnectionProxy
 from asyncpg.transaction import Transaction
 
-from src.application.interfaces.persistence import IsolationLevel
+from src.application.ports.persistence import IsolationLevel
 
 
 _logger = getLogger("infrastructure")
